@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CALCULATOR</title>
+</head>
+<style>
+   
+    *{
+        margin: 0px;
+        padding: 0px;
+        box-sizing: border-box;
+       
+        font-family: sans-serif;
+        outline: none;
+    }
+body{
+    background-color: rgb(32, 1, 58);
+}
+    .container{
+        height: 100vh;
+        margin-top: 200px;
+        margin-left: 500px;
+       
+    }
+    .head{
+     
+        padding: 5px 2px;
+        width: 260px;
+        margin-left: 10px;
+        display: flex;
+        color: yellow;
+        justify-content: space-between;
+       
+    }
+    .head.active{
+        color: black;
+    }
+    .head p{
+        font-size: 12px;
+        margin-left: 120px;
+        margin-top: 2px;
+    }
+    .head .toggle{
+        
+        width: 40px;
+        height: 20px;
+        border: 1px solid white;
+        border-radius: 20px;
+        position: relative;
+        cursor: pointer;
+
+    }
+    .head .toggle::before{
+        content: "";
+        position: absolute;
+        width: 20px;
+        height: 18px;
+        border-radius: 50%;
+        background-color: rgb(0, 174, 255);
+        top: 0px;
+        left: -1px;
+    }
+    .head .toggle.active{
+        border: 1px solid black;
+    }
+    .head .toggle.active::before{
+        left:20px ;
+        background-color:red;
+    }
+   
+    .calculator .btn{
+       
+        display: grid;
+        grid-template-columns: repeat(4, 55px);
+        width: 260px;
+       padding-top: 20px;
+        margin-left: 10px;
+        background:rgb(49, 1, 77) ;
+        border-radius: 2px;
+        justify-content: center;
+          }
+          .calculator .btn.active{
+              background-color: gray;
+          }
+    
+    body.active{
+        background-color: white;
+    }
+    .calculator .btn button{
+        margin-left: 10px;
+        border-radius: 5px;
+        padding: 2px 5px;
+        margin-bottom: 15px;
+        background:rgb(59, 1, 77) ;
+        box-shadow: 0px 2px 0px rgb(158, 2, 158);
+        color: yellow;
+
+    }
+    .calculator .btn button.active{
+        background:white ;
+        box-shadow: 0px 2px 0px gray;
+        color:black;
+
+    }
+    .calculator .btn .del{
+        background: rgb(195, 33, 168);
+        box-shadow: 0px 2px 0px rgb(195, 33, 168);
+    }
+    .calculator .btn .del.active{
+        background-color:blue;
+    }
+    .calculator .btn .reset{
+        background: rgb(195, 33, 168);
+        box-shadow: none;
+        width: 100px;
+    }
+    .calculator .btn .reset.active{
+        background-color: red;
+    }
+    .calculator .btn .equal{
+        background: rgb(0, 204, 255);
+        box-shadow: none;
+        width: 100px;
+        padding: 5px 8px;
+        margin-left: 65px;
+    }
+    .calculator .btn .equal.active{
+        background-color: blue;
+    }
+    input{
+        grid-column: span 4;
+        height: 70px;
+        margin-bottom: 10px;
+        width: 260px;
+        margin-left: 10px;
+        background:rgb(49, 1, 77) ;
+        border-radius: 2px;
+        border: none;
+        font-size: 30px;
+        text-align: end;
+        padding-right: 18px;
+        color: yellow;
+    }
+    input.active{
+        background-color: gray;
+        color: black;
+    }
+    @media screen and (max-width:375px) {
+        .container {
+        height: 100vh;
+       margin-top: 80px;
+        margin-left:50px;
+       
+    }
+    .head{
+        width: 240px;
+    }
+    .calculator .btn{
+        width: 240px;
+    }
+    input{
+        width: 240px;
+    }
+        
+    }
+</style>
+<body id="cal">
+    
+    <div class="container">
+        <div class="head" id="theme1">
+            <h4>calc</h4>
+            <p>theme</p>
+            <div class="toggle" id="toggle" onclick="toggleBtn()" ></div>
+        </div>
+        <div class="calculator">
+            <input type="text" placeholder="0" id="output" >
+            <div class="btn" id="theme2">
+             <button  id="theme3" onclick="display('7')">7</button>
+            <button id="theme4"  onclick="display('8')">8</button>
+            <button id="theme5"  onclick="display('9')">9</button>
+            <button  id="theme6" class="del" onclick="del()">Del</button>
+            <button  id="theme7" onclick="display('4')">4</button>
+            <button  id="theme8" onclick="display('5')">5</button>
+            <button  id="theme9" onclick="display('6')">6</button>
+            <button  id="theme10" onclick="display('+')">+</button>
+            <button id="theme11"  onclick="display('1')">1</button>
+            <button id="theme12"  onclick="display('2')">2</button>
+            <button id="theme13"  onclick="display('3')">3</button>
+            <button id="theme14"  onclick="display('-')">-</button>
+            <button id="theme15"  onclick="display('.')">.</button>
+            <button id="theme16"  onclick="display('0')">0</button>
+            <button  id="theme17" onclick="display('/')">/</button>
+            <button  id="theme18" onclick="display('*')">*</button>
+            <button  id="theme19" class="reset"onclick="reset()">Reset</button>
+            <button  id="theme20" class="equal" onclick="equal()">=</button>
+            </div>
+           
+
+        </div>
+    </div>
+    <script>
+        let outputScreen = document.getElementById ("output");
+
+        function display(num){
+        outputScreen.value += num;
+        }
+
+        function equal(){
+
+            try{
+                  outputScreen.value = eval(outputScreen.value);
+            }
+            catch(err){
+                alert("Invalid calculation")
+            }
+           }
+           function reset(){
+               outputScreen.value ="";
+        }
+        function del(){
+              outputScreen.value = outputScreen.value.slice(0,-1) ;
+        }
+        function toggleBtn()
+      {
+        var mybtn = document.getElementById("toggle");
+        mybtn.classList.toggle('active');
+        var mybtn = document.getElementById("cal");
+        mybtn.classList.toggle('active');
+        var mybtn = document.getElementById("theme1");
+        mybtn.classList.toggle('active');
+        var mybtn = document.getElementById("theme2");
+        mybtn.classList.toggle('active');
+        var mybtn = document.getElementById("output");
+        mybtn.classList.toggle('active');
+        var mybtn = document.getElementById("theme3");
+        mybtn.classList.toggle('active');
+        var mybtn = document.getElementById("theme4");
+        mybtn.classList.toggle('active');
+        var mybtn = document.getElementById("theme5");
+        mybtn.classList.toggle('active');
+        var mybtn = document.getElementById("theme6");
+        mybtn.classList.toggle('active');
+        var mybtn = document.getElementById("theme7");
+        mybtn.classList.toggle('active');
+        var mybtn = document.getElementById("theme8");
+        mybtn.classList.toggle('active');
+        var mybtn = document.getElementById("theme9");
+        mybtn.classList.toggle('active');
+        var mybtn = document.getElementById("theme10");
+        mybtn.classList.toggle('active');
+        var mybtn = document.getElementById("theme11");
+        mybtn.classList.toggle('active');
+        var mybtn = document.getElementById("theme12");
+        mybtn.classList.toggle('active');
+        var mybtn = document.getElementById("theme13");
+        mybtn.classList.toggle('active');
+        var mybtn = document.getElementById("theme14");
+        mybtn.classList.toggle('active');
+        var mybtn = document.getElementById("theme15");
+        mybtn.classList.toggle('active');
+        var mybtn = document.getElementById("theme16");
+        mybtn.classList.toggle('active');
+        var mybtn = document.getElementById("theme17");
+        mybtn.classList.toggle('active');
+        var mybtn = document.getElementById("theme18");
+        mybtn.classList.toggle('active');
+        var mybtn = document.getElementById("theme19");
+        mybtn.classList.toggle('active');
+        var mybtn = document.getElementById("theme20");
+        mybtn.classList.toggle('active');
+        
+    }
+    </script>
+</body>
+</html>
